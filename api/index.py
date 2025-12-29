@@ -152,6 +152,19 @@ async def admin_upload(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 # --- VERCEL WEBHOOK HANDLER ---
+# ... inside api/index.py ...
+
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        """Handle GET requests (e.g., browser visits) to check status."""
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"Bot is running! Send POST requests via Telegram.")
+
+    def do_POST(self):
+        """Handle the webhook request from Telegram."""
+        # ... (rest of your existing do_POST code) ...
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
